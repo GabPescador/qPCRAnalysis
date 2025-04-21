@@ -1,0 +1,33 @@
+Package: qPCRAnalysis
+Title: qPCR Analysis
+Version: 0.1.0
+Authors@R: 
+    person(given = "Gabriel",
+           family = "da Silva Pescador",
+           email = "gd2417@stowers.org",
+           role = c("aut", "cre"))
+Description: Process qPCR data from QuantStudio5 output files and generates an HTML report.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports:
+       dplyr (>= 1.1.4),
+       reshape2,
+       stringr,
+       tidytable,
+       ggplot2,
+       magrittr,
+       readr,
+       cowplot,
+       ggforce,
+       data.table,
+       openxlsx,
+       plotrix,
+       knitr,
+       rmarkdown
+Depends: 
+    R (>= 4.2)
+LazyData: true
+Suggests: 
+VignetteBuilder: knitr

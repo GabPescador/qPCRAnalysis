@@ -1,0 +1,69 @@
+---
+title: "qPCR Report"
+output: html_document
+params:
+  plot1: NA
+  plot2: NA
+  plot3: NA
+  plot4: NA
+  table1: NA
+  table2: NA
+  table3: NA
+  table4: NA
+---
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+# Introduction
+
+
+# Technical controls
+
+For any RT-qPCR experiment, you should have have technical controls, which include water samples and RT-minus samples. These account for amplification of primer dimers, contamination of reagents and genomic DNA contamination.
+
+As a rule of thumb, you should not see amplification in these controls, or if there's noise amplification it should have Ct values above 30.
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+knitr::kable(head(params$table1, digits = 3))
+
+params$plot1
+```
+
+# Flagged technical replicate ouliers
+
+This report checks for technical variability in the technical replicates of your experimental samples and flags any technical replicate as an outlier if they have more than 0.2 standard deviation (default, can be changed in the function calling) compared to the other technical replicates.
+
+```{r}
+knitr::kable(head(params$table2, digits = 3))
+
+params$plot2
+```
+
+These outliers are removed from the analysis as they might inflate fold change calculations later, and most of the time are a result of pipetting error. Means are re-calculated without outliers and a new clean table is generated.
+
+```{r}
+knitr::kable(head(params$table3, digits = 3))
+
+params$plot3
+```
+
+# Fold change calculation and plots per target
+
+Fold change and delta-deltaCt are calculated based on the housekeeping gene you selected and normalized to the control group set at the beginning. Each target will have its own plot comparing all groups.
+
+```{r}
+knitr::kable(head(params$table4, digits = 3))
+```
+```{r, fig.height=8, fig.width=11}
+params$plot4
+```
+
+# Placeholder for melt curve analysis and flagging
+
+# Placeholder for statistical analysis - simple t-tests? or ANOVA + post-test?
+
