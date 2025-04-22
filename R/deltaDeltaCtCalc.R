@@ -40,6 +40,7 @@ means_df4$FoldChange <- 2^(-means_df4$ddCT)
 means_df4 <- means_df4 %>%
   select(!.data$Group.y) %>%
   rename("Group" = "Group.x")
+means_df4 <- unique(means_df4) # for some reason it was duplicating rows, this fixes the final table
 
 # Save final table
 write_csv(means_df4,

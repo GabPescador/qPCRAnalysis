@@ -19,7 +19,7 @@ flagOutliers <- function(df,
                          assayInfo,
                          sampleInfo){
 # Filter out your experimental datapoints
-dfExp <- filter(df, !.data$Name %in% tolower(techCtrs))
+dfExp <- filter(df, !.data$Group %in% tolower(techCtrs))
 
 # Calculating square distances of the mean
 dfExp$dMean <- (dfExp$Cq-dfExp$`Cq Mean`)^2

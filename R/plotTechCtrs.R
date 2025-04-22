@@ -10,7 +10,7 @@
 #'
 plotTechCtrs <- function(df, techCtrs, outputPath){
 # Filter out your technical controls
-dfCtrl <- filter(df, .data$Name %in% tolower(techCtrs))
+dfCtrl <- filter(df, .data$Group %in% tolower(techCtrs))
 write_csv(dfCtrl, file = paste0(normalizePath(outputPath), "/tech_ctr_table.csv"))
 
 # Plot Cts from controls
@@ -19,7 +19,8 @@ p1 <- dfCtrl %>%
   geom_boxplot() +
   geom_sina(color="#AA4499") +
   facet_wrap(facets = ~.data$Gene) +
-  theme_bw()
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
 ggsave(p1, filename = paste0(normalizePath(outputPath), "/tech_ctrl_plot.png"),
        width = 6,

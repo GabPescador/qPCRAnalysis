@@ -12,7 +12,7 @@ importFiles <- function(inputPath){
 raw_results_file <- list.files(path = inputPath,
                                pattern = "Results", full.names = TRUE)
 df1 <- read_csv(raw_results_file,
-                skip = 24, # This is based on the output from QuantStudio5
+                skip = 25, # This is based on the output from QuantStudio5
                 col_select = c("Sample", "Target", "Cq", "Cq Mean", "Cq SD"))
 df1$Cq <- as.numeric(df1$Cq)
 df1$Sample <- as.numeric(str_split_fixed(df1$Sample, "s", n = Inf)[,2])

@@ -5,6 +5,7 @@
 #' @importFrom dplyr select
 #' @importFrom dplyr rename
 #' @importFrom dplyr filter
+#' @importFrom dplyr n
 #' @importFrom dplyr summarise
 #' @importFrom dplyr summarize
 #' @importFrom dplyr arrange
@@ -30,5 +31,7 @@
 #' @importFrom ggforce geom_sina
 #' @importFrom utils head tail
 #' @importFrom stats sd
+#' @importFrom stats t.test
+#' @importFrom stats var
 #' @importFrom plotrix std.error
 NULL

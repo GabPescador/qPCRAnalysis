@@ -21,6 +21,16 @@ qPCRreport <- function(hsk = "cdk2ap2",
                  techCtrs = defaultTechCtrs,
                  allGroups = TRUE){
 
+  # Checking that output directory exists, and if not create it
+  # Check if the directory exists
+  if (!dir.exists(outputPath)) {
+    # If it doesn't exist, create the directory
+    dir.create(outputPath, recursive = TRUE)  # recursive = TRUE ensures that any missing parent directories are also created
+    print(paste("Directory created:", outputPath))
+  } else {
+    print(paste("Directory already exists:", outputPath))
+  }
+
   ################### Importing module ###################
   print("Importing files...")
   l0 <- importFiles(inputPath = inputPath)
@@ -37,6 +47,8 @@ qPCRreport <- function(hsk = "cdk2ap2",
   ################### Calculating delta-deltaCt module ###################
   print("Calculating delta-deltaCt values...")
   means_df4 <- deltaDeltaCtCalc(l2$means_df2, hsk = hsk, ctr = ctr, outputPath = outputPath)
+
+  table5 <- batchTtest(means_df4, ctr = ctr, hsk = hsk, outputPath = outputPath)
 
   print("Plotting fold change results per target...")
   temp2 <- plotFoldChange(means_df4, ctr = ctr, outputPath = outputPath, allGroups = allGroups)
@@ -66,7 +78,8 @@ qPCRreport <- function(hsk = "cdk2ap2",
                   table1 = table1,
                   table2 = table2,
                   table3 = table3,
-                  table4 = table4),
+                  table4 = table4,
+                  table5 = table5),
     envir = new.env(parent = globalenv())
   )
 

@@ -5,7 +5,7 @@
 \alias{defaultTechCtrs}
 \title{Default technical controls}
 \format{
-An object of class \code{character} of length 10.
+An object of class \code{character} of length 11.
 }
 \usage{
 defaultTechCtrs

@@ -4,19 +4,27 @@
 \alias{plotFoldChange}
 \title{qPCR Plot Fold Changes per Targeted Gene}
 \usage{
-plotFoldChange(df, ctr = "pcas13d", outputPath, allGroups = TRUE)
+plotFoldChange(
+  df,
+  ctr = "pcas13d",
+  hsk = "cdk2ap2",
+  outputPath,
+  allGroups = TRUE
+)
 }
 \arguments{
 \item{df}{Dataframe imported from importFiles.}
 
 \item{ctr}{Defines a character string with the name of your control group used to normalize delta-delta-Cts. Default is 'pcas13d'}
 
+\item{hsk}{Defines a character string with the housekeeping gene used in the experiment. Default is "cdk2ap2"}
+
 \item{outputPath}{Path to save files, plots and the report}
 
 \item{allGroups}{TRUE or FALSE to determine if plots will include all conditions or only conditions that match the target name. Useful when you name your groups from knockdowns based on the target gene name. Default is TRUE.}
 }
 \value{
-Plots the technical controls (e.g., water, RT-) and saves plots and table in outuput path.
+Plots the fold change between conditions for each targeted gene.
 }
 \description{
 This function calculates mean and standard error of the mean, then plots the FoldChanges compared to your control group.
