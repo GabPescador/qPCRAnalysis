@@ -38,7 +38,7 @@ outputPath = "/n/sci/SCI-004255-ZFPROT/gd2417/Candidates_KDs/qPCR/2024_02_13_qPC
 qPCRreport(hsk = "cdk2ap2",
            ctr = "pcas13d",
            sdCutOff = 0.2,
-           inputPath = "/n/sci/SCI-004255-ZFPROT/gd2417/Candidates_KDs/qPCR/2024_02_13_qPCR_znf281b-g1-3_pCas13d/20230212_znf281b-g1-3_KDs_Copy/",
+           inputPath = system.file("extdata", "", package = "qPCRAnalysis"),
            outputPath = "/n/sci/SCI-004255-ZFPROT/gd2417/Candidates_KDs/qPCR/2024_02_13_qPCR_znf281b-g1-3_pCas13d/test/",
            techCtrs = defaultTechCtrs)
 

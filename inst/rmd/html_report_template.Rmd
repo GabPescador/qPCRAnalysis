@@ -11,6 +11,8 @@ params:
   table3: NA
   table4: NA
   table5: NA
+editor_options: 
+  chunk_output_type: console
 ---
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
 knitr::opts_chunk$set(
@@ -21,7 +23,76 @@ knitr::opts_chunk$set(
 ```
 
 # Introduction
+This report was created to facilitate RT-qPCR analysis and visualization for the Bazzini Lab, as we tend to perform RT-qPCR on a weekly basis.
 
+For a review ow how to design RT-qPCR experiments: [The Ultimate qPCR Experiment: Producing Publication Quality, Reproducible Data the First Time](https://www.cell.com/trends/biotechnology/fulltext/S0167-7799(18)30342-1])
+
+Some parameters we use for oligo pair design:
+
+1. 18-24 nt long oligos
+2. 85-120 nt long amplification product
+3. Amplification product is between 2 exon junctions
+4. Oligo pair Tm's around 60 ºC
+
+In addition, before your real experiment you should perform an assay validation run to check the cDNA concentration you should use in your experiment and that your oligo pairs are working as intended. This means they should not amplify negative controls (like RT- or water samples), have only 1 melt curve and have good amplification between 18-28 Ct.
+
+## Input file examples
+
+### Sample Info
+
+This file should have the sample name you gave to your samples when setting up your plate with the QuantStudio Design & Analysis software. If you did not change this in the software your samples will be numbered starting 1.
+
+The Name column defines what is your specific sample name, and it will be used by the functions to perform calculations. These should be unique to each sample replicate you have.
+
+The Group column defines the higher grouping of samples, so it should be the same for all replicates of that condition.
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+sample_info <- read_csv(paste0(system.file("extdata", "", package = "qPCRAnalysis"), "/sample_info.csv"))
+```
+```{r, echo=FALSE, warning=TRUE, message=TRUE}
+knitr::kable(head(sample_info))
+```
+
+### Assay Info
+
+This file should have the target name you gave to your oligo pairs when setting up your plate with the QuantStudio Design & Analysis software. If you did not change this in the software your samples will be numbered starting 1.
+
+The Gene column defines what is your targeted gene and it will be used by the functions to perform calculations and plots.
+
+The Class_gene column defines if the targeted gene is a housekeeping gene (hsk) or experimental (exp).
+
+The Oligos column is optional and serves to keep metadata information from our internal database of oligos.
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+assay_info <- read_csv(paste0(system.file("extdata", "", package = "qPCRAnalysis"), "/assay_info.csv"))
+```
+```{r, echo=FALSE, warning=TRUE, message=TRUE}
+knitr::kable(head(assay_info))
+```
+
+### Results file
+
+This file is the results file exported from QuantStudio Design & Analysis software with your Ct values. The import function will skip the first 24 rows as they have information about the instrument run (example below).
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+results_file <- read_csv(paste0(system.file("extdata", "", package = "qPCRAnalysis"), "/Results_20240213_184604.csv"), col_select = 1)
+```
+```{r, echo=FALSE, warning=TRUE, message=TRUE}
+knitr::kable(head(results_file, n= 24))
+```
+
+We will keep only the rows and columns after that information. Sample column should match your Sample column in sample_info.csv and Target column should match your Target column in assay_info.csv.
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+results_file2 <- read_csv(paste0(system.file("extdata", "", package = "qPCRAnalysis"), "/Results_20240213_184604.csv"), skip = 25)
+```
+```{r, echo=FALSE, warning=TRUE, message=TRUE}
+knitr::kable(head(results_file2))
+```
+
+# Melt curve analysis
+
+TBD.
 
 # Technical controls
 
@@ -57,6 +128,8 @@ params$plot3
 
 Fold change and delta-deltaCt are calculated based on the housekeeping gene you selected and normalized to the control group set at the beginning. Each target will have its own plot comparing all groups.
 
+Student's T-test is also performed for all conditions compared to the control group set at the beginning. Any pairwise test with a p <= 0.05 will have a * at the top of the FoldChange bar.
+
 ```{r}
 knitr::kable(head(params$table4, digits = 3))
 ```
@@ -66,4 +139,4 @@ params$plot4
 ```{r}
 knitr::kable(params$table5, digits = 3)
 ```
-# Placeholder for melt curve analysis and flagging
+
