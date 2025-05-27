@@ -11,7 +11,8 @@ qPCRreport(
   inputPath,
   outputPath,
   techCtrs = defaultTechCtrs,
-  allGroups = TRUE
+  allGroups = TRUE,
+  skiprows = 25
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ qPCRreport(
 \item{techCtrs}{Character string that defines the names of your technical controls, e.g. 'water', 'RT-', etc. Default string is within 'R/defaultTechCtrs.R'}
 
 \item{allGroups}{TRUE or FALSE to determine if plots will include all conditions or only conditions that match the target name. Useful when you name your groups from knockdowns based on the target gene name. Default is TRUE.}
+
+\item{skiprows}{Number of rows to skip from the Results file. Default is 25}
 }
 \value{
 Plots, tables and HTML report are saved in the output folder path.

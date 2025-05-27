@@ -4,12 +4,12 @@
 \alias{plotTechCtrs}
 \title{qPCR Plot Technical Controls}
 \usage{
-plotTechCtrs(df, techCtrs, outputPath)
+plotTechCtrs(df, techCtrs = defaultTechCtrs, outputPath)
 }
 \arguments{
 \item{df}{Dataframe imported from importFiles.}
 
-\item{techCtrs}{Path to Assay info, Sample info and Results file from QuantStudio 5 384-well instrument}
+\item{techCtrs}{Character string that defines the names of your technical controls, e.g. 'water', 'RT-', etc. Default string is within 'R/defaultTechCtrs.R'}
 
 \item{outputPath}{Path to save files, plots and the report}
 }

@@ -4,10 +4,12 @@
 \alias{importFiles}
 \title{qPCR Import Files}
 \usage{
-importFiles(inputPath)
+importFiles(inputPath, skiprows = 25)
 }
 \arguments{
 \item{inputPath}{Path to Assay info, Sample info and Results file from QuantStudio 5 384-well instrument}
+
+\item{skiprows}{Number of rows to skip from the Results file. Default is 25}
 }
 \value{
 Imports tables and merges them creating a final dataframe with all sample and target info.
