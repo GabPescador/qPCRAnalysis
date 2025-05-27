@@ -10,6 +10,7 @@
 #' @param outputPath Path to save files, plots and the report
 #' @param techCtrs Character string that defines the names of your technical controls, e.g. 'water', 'RT-', etc. Default string is within 'R/defaultTechCtrs.R'
 #' @param allGroups TRUE or FALSE to determine if plots will include all conditions or only conditions that match the target name. Useful when you name your groups from knockdowns based on the target gene name. Default is TRUE.
+#' @param skiprows Number of rows to skip from the Results file. Default is 25
 #' @return Plots, tables and HTML report are saved in the output folder path.
 #' @export
 #'
@@ -19,7 +20,8 @@ qPCRreport <- function(hsk = "cdk2ap2",
                  inputPath,
                  outputPath,
                  techCtrs = defaultTechCtrs,
-                 allGroups = TRUE){
+                 allGroups = TRUE,
+                 skiprows = 25){
 
   # Checking that output directory exists, and if not create it
   # Check if the directory exists
@@ -33,7 +35,8 @@ qPCRreport <- function(hsk = "cdk2ap2",
 
   ################### Importing module ###################
   print("Importing files...")
-  l0 <- importFiles(inputPath = inputPath)
+  l0 <- importFiles(inputPath = inputPath,
+                    skiprows = skiprows)
 
   ################### Control module ###################
   print("Plotting technical controls...")

@@ -19,7 +19,7 @@ plotFoldChange <- function(df, ctr = "pcas13d", hsk = "cdk2ap2", outputPath, all
     summarize(replicates = n(),
               variance = var(.data$FoldChange))
 # all(check$replicates) >= 2 &
-  if (all(!is.na(df$variance) & df$variance > 0)){
+  if (all(!is.na(check$variance) & check$variance > 0)){
   # This will perform T-test in all pairwise comparisons to the ctr group and
   # be used later to add to the plots
   ttest_results <- batchTtest(df = df, ctr = ctr, outputPath = outputPath)
@@ -125,6 +125,11 @@ if(allGroups == TRUE){
 return(temp2)
   } else {
 print("Variance between samples is 0, skipping T-test...")
+
+means_df5 <- df %>%
+             group_by(.data$Group, .data$Gene, .data$Class_gene) %>%
+             summarise(FC_Mean = mean(.data$FoldChange), FC_SD = std.error(.data$FoldChange))
+
 # This will keep uninjected and defines ctr groups first in the plots
 means_df5$Group <- factor(x = means_df5$Group,
                           levels = c(ctr, unique(filter(means_df5,

@@ -4,17 +4,19 @@
 #' merges all tables into a single dataframe with all information.
 #'
 #' @param inputPath Path to Assay info, Sample info and Results file from QuantStudio 5 384-well instrument
+#' @param skiprows Number of rows to skip from the Results file. Default is 25
 #' @return Imports tables and merges them creating a final dataframe with all sample and target info.
 #' @export
 #'
-importFiles <- function(inputPath){
+importFiles <- function(inputPath, skiprows = 25){
 # First imports results files and makes columns cleaner
 raw_results_file <- list.files(path = inputPath,
                                pattern = "Results", full.names = TRUE)
 df1 <- read_csv(raw_results_file,
-                skip = 25, # This is based on the output from QuantStudio5
+                skip = skiprows, # This is based on the output from QuantStudio5
                 col_select = c("Sample", "Target", "Cq", "Cq Mean", "Cq SD"))
 df1$Cq <- as.numeric(df1$Cq)
+df1$Target <- as.numeric(df1$Target)
 df1$Sample <- as.numeric(str_split_fixed(df1$Sample, "s", n = Inf)[,2])
 
 # Read sample info file and fixes possible errors with lower and upper cases
